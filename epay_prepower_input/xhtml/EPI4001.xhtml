@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+#{
+  this = ert.channel:get_page("epay_prepower_input","EPI4000");
+}#
+<content>
+    <head>
+        <script type="text/x-lua" src="epay_prepower_input/lua/EPI4001.lua" ></script>
+        <style type="text/css" media="screen">
+            .list_bank{height:#{=ui["w_h"]("30","30")}#}
+        </style>
+    </head>
+    <body>
+        <!--显示部分信息header-->
+        
+        <div border="0" class="fixed,bgc_FFFFFF">
+            #{=ui["ios_bar"]()}#
+            <div class="conn_bgc,w_750,h_#{=ert.static:get('_header_')}#" valign="middle" align="center" border="0">
+                <div  valign="middle" class="window_hide,l_0,inline,w_150,h_#{=ert.static:get('_header_')}#" border="0">
+                    <label class="w_30"></label>
+                    <img src="zcomm_images/file/cmm_ico_return.png" class="w_50,h_50,window_hide" ></img>
+                    <label class="w_30"></label>
+                </div>
+                <label class="f_30,c_37414E">收款银行</label>
+            </div>
+            #{=ui["line"](750)}#
+        </div>
+        #{=ui["h"](20)}#
+        <!--局刷div -->
+        <div id="list_bank" class="list_bank" border="0"></div>
+        <div class="w_80,r_0,t_300" id="sleek_div" center="right" border="0">
+            <!--“热门城市”索引 -->
+            <div class="r_5" id="hot_select" border="0" hide="false" align="center">
+                 <div class="w_80,h_40" border="0" align="center" onclick="this_TRE1003.nav_to_hot()">
+                     <label class="c_024cab ,f_28">热</label>
+                 </div>
+            </div>
+            <!--首字母索引 -->
+            <div class="r_5" id="code_select" border="0" hide="false" align="center">
+            <!--如果后一个值和前一个相同，就不显示！ -->
+            #{local char_first;}#
+            #{local char_befor;}#
+            #{
+              for key,value in pairs(this.bankInfoList) do
+                  char_first = value["pinyinFirst"];
+                  if char_befor ~= char_first then
+            }#
+                 <div class="w_80,h_40" border="0" align="center" onclick="this_TRE1003.nav_to('#{=value["pinyinFirst"]}#')">
+                     <label class="c_024cab ,f_28">#{=value["pinyinFirst"]}#</label>
+                 </div>
+                #{char_befor = char_first;
+                  end}#
+            #{end}#
+            </div>
+        </div>
+    </body>
+</content>

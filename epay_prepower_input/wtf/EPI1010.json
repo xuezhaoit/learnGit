@@ -1,0 +1,47 @@
+[
+    #{for j,v0 in ipairs(this.jsonMetadata[this.currentPage][this.dataId]) do}#
+
+    #{if j>1 then}#
+    ,
+    #{end}#
+     {
+        "BsnCode":{
+            "property":{
+                    "value":"#{=(v0.BsnCode)}#"
+            },
+            "css": {}
+        },
+        "Stt":{
+            "property":{
+                    "value":"#{=format_utils.format_enumerationStt(v0.Stt)}#"
+            },
+              "css": {}
+         },
+          "SmtTim":{
+             "property":{
+                    "value":"#{=format_utils.format_date(v0.SmtTim)}#"
+             },
+              "css": {}
+         },
+          "TranAmt":{
+             "property":{
+                    "value":"#{=v0.TranAmt..'元'}#"
+             },
+              "css": {}
+         },
+          "Oprname":{
+             "property":{
+                    "value":"#{=v0.Oprname}#"
+             },
+              "css": {}
+         }
+         ,
+        "detail":{
+            "property": {
+                "onclick":"waterfull.delegate(#{=this.currentPage}#,#{=j}#,'#{=this.channelId}#','#{=this.currentTrancodeCode}#','#{=this.waterfullId}#','detail')"
+            },
+            "css": {}
+        }
+     }
+     #{end}#
+]

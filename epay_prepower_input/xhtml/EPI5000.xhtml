@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content>
+    <head>
+        <script type="text/x-lua" src="epay_prepower_input/lua/EPI5000.lua" />
+    </head>
+    #{
+        local threePage = ert.channel:get_page("epay_prepower_input","EPI3000");
+        local phone = ert.static:get("login_info").phoneNo
+    }#
+    <style type="text/css">
+    </style>
+<body >
+    #{= ui["header"]({page_name="支付确认" })}#
+    <div class="w_750,bgc_FFFFFF" align="center" valign="middle" border="0">
+        <label class="w_600,f_32,h_80,c_37414E,l_30">收款人信息</label>
+        #{= ui["t2v_2_id"]({t="收款账号:",id="recaccNo",content=threePage.postBody_repet.rcvAccNo or "",r=30,tw=200})}#
+        #{= ui["t2v_2_id"]({t="收款户名:",id="recaccName",content=threePage.postBody_repet.rcvAccName or "",r=30,tw=200})}#
+        #{= ui["t2v_2_id"]({t="付款金额:",id="paymoney",content=threePage.postBody_repet.amount or "",r=30,tw=200})}#
+    </div>
+
+    #{if threePage.is_bluekey =="0" and threePage.is_massge =="0" then}#
+        <div class="w_750,bgc_FFFFFF" border = "0">
+            <div border="0"><label class="f_32,l_30,h_88,c_A5A5A5">认证方式：</label></div>
+            <div class="l_60" border="0">
+                <input type="radio" class="h_88,check_style" id="message" name ="check_style"  value="短信"/><label class="h_88,f_30">短信</label>
+                #{=ui["w"](50)}#
+                <input type="radio" class="h_88,check_style" value="蓝牙KEY" name ="check_style" id="bluekey"/><label class="h_88,f_30">蓝牙KEY</label>
+                <div class="none" id="message_show" border="0">
+                    <div class="f_30,h_80" valign="middle" border="0">
+                        <label class="f_30,c_A5A5A5">手机号码：</label>
+                        #{=ui["w"](10)}#
+                        <label  class="r_30,f_30">#{=phone}#</label>
+                    </div>
+                    <div class="w_750,h_88,f_32,bgc_FFFFFF" valign="middle" border="0">
+                        <label class="w_150,c_A5A5A5">验证码：</label>
+                        <input class="w_300,h_40,f_28,c_A5A5A5" type="text" id="verifyCode" maxleng="6" style="-wap-input-format:'N'" hold="请输入6位验证码" border="0"/>
+                        <div id="sent_mess" class="h_50,f_24,inline,radius_20,bgc_0D6DD6" align="center" valign="middle" border="1">
+                            <label class="w_200,text_center,c_FFFFFF" id="setCode_label">获取短信验证码</label>
+                        </div>
+                    </div>
+                    <div class="f_30,h_80" valign="middle" border="0">
+                        <label class="f_30,c_A5A5A5,">密码核对序号</label>
+                        #{=ui["w"](10)}#
+                        <label id="check_number" class="r_30,f_30,none"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    #{elseif threePage.is_bluekey =="1"  and threePage.is_massge =="0" then}#
+        <div class="w_750,bgc_FFFFFF" border = "0">
+            <div border="0"><label class="f_32,l_30,h_88">认证方式：</label></div>
+            <div class="l_60" border="0">
+                <input type="radio" class="h_88,check_style" id="message" name ="check_style" value="短信"/><label class="h_88,f_30">短信</label>
+                <div class="none" id="message_show" border="0">
+                    <div class="f_30,h_80" valign="middle" border="0">
+                        <label class="f_30,c_A5A5A5">手机号码：</label>
+                        #{=ui["w"](10)}#
+                        <label  class="r_30,f_30">#{=phone}#</label>
+                    </div>
+                    <div class="w_750,h_88,f_32,bgc_FFFFFF" valign="middle" border="0">
+                            <label class="w_150,c_A5A5A5">验证码：</label>
+                            <input class="w_300,h_40,f_28,c_A5A5A5" type="text" id="verifyCode" maxleng="6" style="-wap-input-format:'N'" hold="请输入6位验证码" border="0"/>
+                            <div id="sent_mess" class="h_50,f_24,inline,radius_20,bgc_0D6DD6" align="center" valign="middle" border="1">
+                                <label class="w_200,text_center,c_FFFFFF" id="setCode_label">获取短信验证码</label>
+                            </div>
+                        </div>
+                <div class="f_30,h_80" valign="middle" border="0">
+                    <label class="f_30,c_A5A5A5,">密码核对序号</label>
+                    #{=ui["w"](10)}#
+                    <label id="check_number" class="r_30,f_30,none"></label>
+                </div>
+            </div>
+            </div>
+        </div>
+    #{elseif threePage.is_bluekey =="0"  and threePage.is_massge =="1" then}#
+        <div class="w_750,bgc_FFFFFF" border = "0">
+            <div border="0"><label class="f_32,l_30,h_88">认证方式：</label></div>
+            <input type="radio" class="h_88,check_style,l_30"  name ="check_style" value="蓝牙KEY" id="bluekey"/><label class="h_88,f_30">蓝牙KEY</label>
+        </div>
+    #{end}#
+    #{= ui["1_button"]({id="submit" ,va="提交" })}#
+</body>
+</content>

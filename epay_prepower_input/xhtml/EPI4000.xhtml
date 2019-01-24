@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content>
+    <head>
+        <script type="text/x-lua" src="epay_prepower_input/lua/EPI4000.lua" />
+    </head>
+    #{
+    }#
+<body>
+    #{= ui["header"]({page_name="e动付预授权—支付录入" })}#
+    <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+        <label class="l_30,f_28,c_37414E">收款人账号</label>
+        <input id="recAccNo" class="f_28,r_30,h_60,text_right,w_450" type="text"  border="0" value="" hold="请输入账号"/>
+    </div>
+    #{=ui["line"](750)}#
+    <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+        <label class="l_30,f_28,c_37414E">收款人账户名</label>
+        <input id="recAccName" class="f_28,r_30,h_60,text_right,w_450" type="text"  border="0" value="" hold="收款人账户名"/>
+    </div>
+    #{=ui["line"](750)}#
+    <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+        <label class="l_30,f_28,c_37414E,w_200">收款人开户行</label>
+        <div id ="rcv_bank" class="w_500,h_80,bgc_FFFFFF,get_bankInfo,inline" border="0"  valign="middle" >
+             <label class="f_28,r_56" id ="rcv_bank_val" click_params ="" ></label>
+             <img class="w_16,h_32,r_10" src="epay_prepower_input/img/right_arrow.png"/>
+        </div>
+    </div>
+    #{=ui["line"](750)}#
+    <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+        <label class="l_30,f_28,c_37414E">收款人开户网点</label>
+        <input id="recOpenNode" class="f_28,r_30,h_60,text_right,w_450" type="text"  border="0" value="" hold="收款人开户网点"/>
+    </div>
+    #{=ui["line"](750)}#
+    <div class="w_750,h_60" border="0" valign="middle">
+        <div id="noPayAcc_div" class="w_500,l_30" border="0">
+            <label class="c_0D6DD6,f_28">没有收款账号？</label>
+        </div>
+    </div>
+    #{= ui["1_button"]({id="submit" ,va="确认支付" })}#
+</body>
+</content>

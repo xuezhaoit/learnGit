@@ -1,0 +1,29 @@
+#{
+	local twoPage = ert.channel:get_page("epay_prepower_input","EPI2000");
+    local threePage = ert.channel:get_page("epay_prepower_input","EPI3000");
+	ercode = "qrcontent='"..threePage.token.."'";
+}#
+<div class="w_750,radius_20" align="center" valign="middle" id="code_div" border="0">
+    #{=ui["whc"](750,50,"E6ECF2")}#
+    <div class="w_630" valign="middle" border="0">
+        <div class="w_630,bgc_37414E,radius_20,h_80" valign="middle" border="0">
+            <label class="f_28,l_30,c_FFFFFF">付款码</label>
+        </div>
+        <div class="w_630,h_480,bgc_FFFFFF" align="center" valign="middle" border="0">
+            <qrcreate class="w_300,h_300,imgercode" #{=ercode}# ></qrcreate>
+        </div>
+    </div>
+    #{=ui["whc"](630,2,"E6ECF2")}#
+    <div class="w_630,h_80,inline,bgc_FFFFFF" align="center" valign="middle" border="0">
+        <label id="accNoV" class="f_24,l_100,c_37434E">#{= twoPage.postBody.payAccNo}#</label>
+        <div class="f_24,w_100,inline,r_120,h_80" align="center" valign="middle" border="0" onclick="show_accountList()">
+            <label class="w_80,c_0D6DD6" >更换</label>
+        </div>
+    </div>
+    #{=ui["whc"](630,10,"E6ECF2")}#
+    <div id="refresh" class="w_630,h_80,bgc_C0CBD9" onclick="" valign="middle" border="0">
+        <label class="f_24,l_100,c_37434E" id="tips_label"></label>
+    </div>
+    #{=ui["whc"](750,50,"E6ECF2")}#
+</div>
+

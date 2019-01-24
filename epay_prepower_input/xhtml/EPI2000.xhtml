@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content>
+    <head>
+        <script type="text/x-lua" src="epay_prepower_input/lua/EPI2000.lua" ></script>
+    </head>
+    #{
+        local onePage = ert.channel:get_page("epay_prepower_input","EPI1000");
+        local payDate_60days = date_utils.get_next_n_days(onePage.wtf_data.serverDate,60)
+    }#
+    <body class="bgc_E6ECF2">
+        #{= ui["header"]({page_name="e动付预授权—支付录入"})}#
+        #{=ui["line"](750)}#
+        <div id="payAll_div" class="w_750" border="0" align="middle">
+            #{=ui["t2v_2"]({t="付款账户",content=onePage.wtf_data.dbtrActId,r=30,c2='8B95A3'})}#
+            #{=ui["line"](750)}#
+            #{=ui["t2v_2"]({t="付款户名",content=onePage.wtf_data.dbtrNm,r=30,c2='8B95A3',tw=200})}#
+            #{=ui["line"](750)}#
+            #{=ui["h"](20)}#
+            #{=ui["line"](750)}#
+            #{=ui["t2v_2"]({t="付款币种",content=format_utils.format_Ccy(onePage.wtf_data.ccyCd),r=30,c2='8B95A3'})}#
+            #{=ui["line"](750)}#
+            <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+                <label class="l_30,f_28,c_37414E">付款金额</label>
+                <input id="money" class="f_24,r_30,h_60,text_right,w_450" onblur="money_change()" type="text" money='n' style="-wap-input-format:'money';-wap-input-format:'n'" border="0" value="" hold="请输入"/>
+            </div>
+            #{=ui["line"](750)}#
+            #{=ui["h"](20)}#
+            #{=ui["line"](750)}#
+            <div class="w_750,bgc_FFFFFF" valign="center" border="0">
+                #{=ui["h"](10)}#
+                <input id="noPreTime" type="radio" class="l_30,h_60,check_style" name ="check_style" checked="checked" /><label class="h_60,f_24">即时转账</label>
+                #{=ui["w"](50)}#
+                <input id="preTime" type="radio" class="h_60,check_style" name ="check_style" /><label class="h_60,f_24">预约转账</label>
+                #{=ui["h"](10)}#
+            </div>
+            <div id="payDate_div" class="w_750,h_80,bgc_FFFFFF,none" valign="middle" border="0">
+                <label class="l_30,f_28,c_37414E">付款时间</label>
+                <input id="payDate" type="text" class="f_28,h_60,text_right,c_37414E,r_30" value="#{= onePage.wtf_data.serverDate}#" minDate="#{= onePage.wtf_data.serverDate}#" maxDate="#{= payDate_60days}#" showFormat="yyyy-MM-dd" valueFormat="yyyyMMdd" style="-wap-input-format:'date'" border="0"/>
+            </div>
+            #{=ui["line"](750)}#
+            #{=ui["h"](20)}#
+            #{=ui["line"](750)}#
+            <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+                <label class="l_30,f_28,c_37414E">付款码</label>
+                <div id="ercode_div" class="w_100,inline,r_30" border="0">
+                    <img class="w_60,h_60,r_0" src="epay_prepower_input/img/ercode.png"/>
+                </div>
+            </div>
+            #{=ui["line"](750)}#
+            <div class="w_750,h_80,bgc_FFFFFF" border="0" valign="middle">
+                <label class="l_30,f_28,c_37414E">扫一扫</label>
+                <div id="scan_div" class="w_100,inline,r_30" border="0">
+                    <img class="w_60,h_60,r_0" src="epay_prepower_input/img/scan.png"/>
+                </div>
+            </div>
+            <div class="w_750,h_60" border="0" valign="middle">
+                <div id="noErcode_div" class="w_500,r_30,inline" border="0">
+                    <label class="c_0D6DD6,f_28,r_0">收款人无收款二维码？</label>
+                </div>
+            </div>
+        </div>
+        <div class="w_750,radius_20" valign="middle" id="code_div" border="0"></div>
+    </body>
+</content>

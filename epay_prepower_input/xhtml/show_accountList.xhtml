@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<content>
+    <head>
+        <style media="screen">
+            .body{filter:progid(startColorStr='#000000',endColorStr='#000000',gradientType='0',alpha='0.5')}
+        </style>
+         <script type="text/x-lua"><![CDATA[
+            local this  = ert.channel:get_page("e_pay","EPY1000");
+            local function cancel( ... )
+                ebank_utils.hide()
+            end
+            function sel_acc_event(index)  
+                --保存当前账户
+                ebank_utils.hide()
+                this.sel_acc_callback(tonumber(index))
+            end
+
+            ert("#cancel"):click(cancel)
+            window:setPhysicalkeyListener("backspace", ebank_utils.hide) 
+        ]]></script>
+        #{
+            local twoPage_2001  = ert.channel:get_page("epay_prepower_input","EPI2001");
+            payTAccNo = this.payTAccNo or ""                 
+        }#
+        
+    </head>
+    <body>
+        <div id="question_content" class="w_710,b_5,bgc_FFFFFF,l_20" border="0" valign="middle" align="center">
+            <div class="f_24,c_37414E,h_80,w_710" valign="middle" align="center" border="0" >
+                <label>选择账号</label>
+            </div>
+                #{for i,coll in ipairs(twoPage_2001.payAccList or {}) do}#
+                #{=ui["line"](710)}#
+                <div class="f_24,c_37414E,h_80,w_710" align="center" border="0" >
+                    <div class="f_24,c_37414E,h_80,w_710" valign="middle" onclick="sel_acc_event('#{=i}#')" align="center" border="0" >
+                        <label id="accNo#{=i}#">#{=coll.accNo}#</label>
+                        #{if epay_page_flag == "0" then}#
+                        <img class="w_36,h_36,r_50,#{=(coll.accNo == collAccNo.accNo and 'block' or 'none')}#" src="e_pay/img/v.png" id="img#{=i}#"/>
+                        #{else}#
+                        <img class="w_36,h_36,r_50,#{=(coll.accNo == payTAccNo.accNo and 'block' or 'none')}#" src="e_pay/img/v.png" id="img#{=i}#"/>
+                        #{end}#
+                    </div>
+                </div>
+                #{end}#
+            #{=ui["line"](710)}#
+            <div class="f_24,h_80,w_710,c_37414E" valign="middle" align="center" id="cancel" border="1" >
+                <label>取消</label>
+            </div>
+        </div>
+    </body>
+</content>
