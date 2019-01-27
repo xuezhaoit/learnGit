@@ -11,11 +11,11 @@
         IHX="1350",
         callback = function (data,args)
             if args == "detail" then
-                -- post_body = {
-                --     flwNo = data.FlwNo,
-                --     fcn="2"
-                -- }
-                -- ebank_utils.jump_next_page("epay_prepower_input","EPI2000",post_body)
+                post_body = {
+                    flwNo = data.FlwNo,
+                    fcn="2"
+                }
+                ebank_utils.jump_next_page("epay_prepower_input","EPI2000",post_body)
                 this.wtf_data = data
                 ebank_utils.jump_just_page("epay_prepower_input","EPI2000")
             end
